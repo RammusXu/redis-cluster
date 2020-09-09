@@ -1,0 +1,18 @@
+on:
+  push:
+env:
+  DOCKER_BUILDKIT: '1'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t demo -f Dockerfile .
+      - run: docker images
+
+  build-debian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t demo -f Dockerfile.debian .
+      - run: docker images
