@@ -1,6 +1,86 @@
 version: "3.8"
 services:
   redis-cluster-proxy:
-    image: redis-cluster-proxy
+    image: swaglive/redis-cluster-proxy
     build:
       context: .
+    depends_on:
+      - redis-1
+      - redis-2
+      - redis-3
+      - redis-4
+      - redis-5
+      - redis-6
+    command: 172.28.1.1:6379 172.28.1.2:6379 172.28.1.3:6379 172.28.1.4:6379 172.28.1.5:6379 172.28.1.6:6379
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.10
+  redis-1:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-1:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.1
+  redis-2:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-2:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.2
+  redis-3:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-3:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.3
+  redis-4:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-4:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.4
+  redis-5:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-5:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.5
+  redis-6:
+    image: redis:6.0.7-alpine
+    volumes:
+      - "./conf/redis.conf:/etc/redis.conf"
+      - redis-6:/data
+    command: /etc/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 172.28.1.6
+
+volumes:
+  redis-1:
+  redis-2:
+  redis-3:
+  redis-4:
+  redis-5:
+  redis-6:
+
+networks:
+  redis_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

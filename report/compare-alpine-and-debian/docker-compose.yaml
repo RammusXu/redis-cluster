@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  # redis-cluster-proxy:
+  #   image: redis-cluster-proxy
+  #   build:
+  #     context: .
+  redis-buster:
+    image: redis:6.0.7-buster
+  redis-alpine:
+    image: redis:6.0.7-alpine
+  benchmark:
+    image: redislabs/memtier_benchmark:latest
+    entrypoint: tail
+    command: -f /dev/null
