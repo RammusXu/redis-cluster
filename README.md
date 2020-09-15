@@ -35,6 +35,18 @@ Clean
 docker-compose down -v
 ```
 
+## Envoy
+```
+docker-compose exec redis-1 redis-cli -h proxy
+docker-compose exec redis-1 redis-cli -c
+
+
+docker-compose exec redis-1 sh -c \
+    "echo yes | redis-cli --cluster create 172.28.1.6:6379 172.28.1.7:6379 172.28.1.8:6379"
+```
+
+ref: https://medium.com/@fr33m0nk/migrating-to-redis-cluster-using-envoy-93a87ae79dc3
+
 ## Doc
 - https://redis.io/topics/cluster-tutorial
 - https://github.com/RedisLabs/redis-cluster-proxy

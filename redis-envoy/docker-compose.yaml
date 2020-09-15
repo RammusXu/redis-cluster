@@ -1,20 +1,16 @@
 version: "3.7"
 services:
 
-  proxy:
-    build:
-      context: .
-      dockerfile: Dockerfile-proxy
-
+  redis-cluster-envoy:
+    # 2020-09-15
+    image: envoyproxy/envoy-dev@sha256:9901116c862d2d2ac4c42a050a052f3609de5a661a79d222c9d0e6ff20dcc9bc
+    command: /usr/local/bin/envoy -c /etc/envoy.yaml -l debug --service-cluster redis-cluster-envoy
     volumes:
       - "./envoy.yaml:/etc/envoy.yaml"
     networks:
       envoymesh:
       redis_net:
         ipv4_address: 172.28.1.1
-    expose:
-      - 6379
-      - 8001
     ports:
       - "8001:8001"
 
