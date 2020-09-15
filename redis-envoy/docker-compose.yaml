@@ -9,12 +9,13 @@ services:
     volumes:
       - "./envoy.yaml:/etc/envoy.yaml"
     networks:
-      - envoymesh
+      envoymesh:
+      redis_net:
+        ipv4_address: 172.28.1.1
     expose:
-      - "1999"
-      - "8001"
+      - 6379
+      - 8001
     ports:
-      - "1999:1999"
       - "8001:8001"
 
   redis-1:
